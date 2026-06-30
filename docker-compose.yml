@@ -37,6 +37,7 @@ services:
       - .env
     volumes:
       - searxng-data:/etc/searxng
+      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
 
 volumes:
   9router-data:

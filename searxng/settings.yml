@@ -26,16 +26,21 @@ enabled_plugins:
 
 engines:
   - name: duckduckgo
+    engine: duckduckgo
     disabled: false
 
   - name: google
+    engine: google
     disabled: false
 
   - name: wikipedia
+    engine: wikipedia
     disabled: false
 
   - name: wikidata
+    engine: wikidata
     disabled: false
 
   - name: bing
+    engine: bing
     disabled: false

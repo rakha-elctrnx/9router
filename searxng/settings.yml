@@ -1,46 +1,9 @@
-# SearXNG settings for 9Router
-# https://docs.searxng.org/admin/settings/settings.html
-
-use_default_settings: false
-
+use_default_settings: true
 server:
   secret_key: "change-me-to-random-string"
   bind_address: "0.0.0.0"
-  limiter: false
-  public_instance: false
-  image_proxy: false
-
 search:
-  safe_search: 0
   formats:
     - html
     - json
 
-ui:
-  static_use_hash: true
-
-enabled_plugins:
-  - 'Hash plugin'
-  - 'Self Informations'
-  - 'Tracker URL remover'
-
-engines:
-  - name: duckduckgo
-    engine: duckduckgo
-    disabled: false
-
-  - name: google
-    engine: google
-    disabled: false
-
-  - name: wikipedia
-    engine: wikipedia
-    disabled: false
-
-  - name: wikidata
-    engine: wikidata
-    disabled: false
-
-  - name: bing
-    engine: bing
-    disabled: false

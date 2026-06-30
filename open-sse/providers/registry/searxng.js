@@ -15,7 +15,9 @@ export default {
   ],
   noAuth: true,
   searchConfig: {
-    baseUrl: "http://localhost:8888/search",
+    baseUrl: process.env.SEARXNG_URL
+      ? `${process.env.SEARXNG_URL.replace(/\/+$/, "")}/search`
+      : "http://localhost:8888/search",
     method: "GET",
     authType: "none",
     authHeader: "none",

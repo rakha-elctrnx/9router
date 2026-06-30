@@ -1,13 +1,13 @@
 # SearXNG settings for 9Router
 # https://docs.searxng.org/admin/settings/settings.html
 
-use_default_settings: true
+use_default_settings: false
 
 server:
   secret_key: "change-me-to-random-string"
   bind_address: "0.0.0.0"
   limiter: false
-  public_instance: true
+  public_instance: false
   image_proxy: false
 
 search:
@@ -23,7 +23,6 @@ enabled_plugins:
   - 'Hash plugin'
   - 'Self Informations'
   - 'Tracker URL remover'
-  - 'Ahmia blacklist'
 
 engines:
   - name: duckduckgo

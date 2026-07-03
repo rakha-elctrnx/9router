@@ -16,9 +16,10 @@ export default {
   transport: {
     baseUrl: "https://api.mistral.ai/v1/chat/completions",
     validateUrl: "https://api.mistral.ai/v1/models",
-    quirks: {
-      dropClientMetadata: true,
-    },
+  quirks: {
+    dropClientMetadata: true,
+    stripRequestFields: ["store"]
+  },
   },
   models: [
     { id: "mistral-large-latest", name: "Mistral Large 3" },

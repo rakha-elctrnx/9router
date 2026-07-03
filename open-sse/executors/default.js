@@ -89,6 +89,12 @@ export class DefaultExecutor extends BaseExecutor {
       if (this.config.quirks?.dropClientMetadata) {
         delete transformed.client_metadata;
       }
+      // Mistral API rejects unknown fields like 'store' (422 extra_forbidden)
+      if (this.provider === "mistral") {
+        delete transformed.store;
+        delete transformed.metadata;
+        delete transformed.prompt_cache_key;
+      }
       stripUnsupportedParams(this.provider, model, transformed);
     }
 

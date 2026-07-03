@@ -145,19 +145,19 @@ describe("compatible provider connections API", () => {
     });
   });
 
-  it("creates multiple API-key connections for the same compatible node", async () => {
+  it("allows multiple connections on the same compatible node", async () => {
     const ctx = await setupTestContext({
-      id: "openai-compatible-multi-conn",
+      id: "openai-compatible-multiple-test",
       type: "openai-compatible",
-      name: "Multi Connection Node",
-      prefix: "multi",
+      name: "Multiple Connections Node",
+      prefix: "mul",
       apiType: "chat",
-      baseUrl: "https://multi-conn.test/v1",
+      baseUrl: "https://multiple-connections.test/v1",
     });
     cleanup = ctx.cleanup;
 
-    const firstResponse = await ctx.POST(makeRequest(ctx.node.id, "First Key"));
-    const secondResponse = await ctx.POST(makeRequest(ctx.node.id, "Second Key"));
+    const firstResponse = await ctx.POST(makeRequest(ctx.node.id, "Key A"));
+    const secondResponse = await ctx.POST(makeRequest(ctx.node.id, "Key B"));
     const storedConnections = await ctx.getProviderConnections({ provider: ctx.node.id });
 
     expect(firstResponse.status).toBe(201);

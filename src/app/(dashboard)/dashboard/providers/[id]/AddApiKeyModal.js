@@ -133,6 +133,7 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
     setBulkResult(null);
     let success = 0;
     let failed = 0;
+    const providerData = buildProviderSpecificData();
     for (let i = 0; i < lines.length; i++) {
       const parts = lines[i].split("|");
       const apiKey = parts.length >= 2 ? parts.slice(1).join("|").trim() : parts[0].trim();
@@ -142,7 +143,7 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
         const res = await fetch("/api/providers", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ provider, apiKey, name, priority: 1, testStatus: "unknown" }),
+          body: JSON.stringify({ provider, apiKey, name, priority: 1, testStatus: "unknown", providerSpecificData: providerData }),
         });
         if (res.ok) success++;
         else failed++;
@@ -169,6 +170,21 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
         {mode === "bulk" && (
           <div className="flex flex-col gap-3">
             <p className="text-xs text-text-muted">One key per line. Format: <code>name|apiKey</code> or just <code>apiKey</code> (auto-named by index).</p>
+
+            {isCloudflareAi && (
+              <div className="bg-sidebar/50 p-3 rounded-lg border border-accent/20">
+                <Input
+                  label="Account ID (shared for all keys)"
+                  value={cloudflareData.accountId}
+                  onChange={(e) => setCloudflareData({ ...cloudflareData, accountId: e.target.value })}
+                  placeholder="abc123def456..."
+                />
+                <p className="text-xs text-text-muted mt-1">
+                  Find your Account ID in the right sidebar of <a href="https://dash.cloudflare.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">dash.cloudflare.com</a>
+                </p>
+              </div>
+            )}
+
             <textarea
               className="w-full rounded border border-accent/30 bg-sidebar p-2 text-sm font-mono resize-y min-h-[140px] focus:outline-none focus:ring-1 focus:ring-primary"
               placeholder={BULK_PLACEHOLDER}
@@ -181,7 +197,7 @@ export default function AddApiKeyModal({ isOpen, provider, providerName, isCompa
               </div>
             )}
             <div className="flex gap-2">
-              <Button onClick={handleBulkSubmit} fullWidth disabled={saving || !bulkText.trim()}>
+              <Button onClick={handleBulkSubmit} fullWidth disabled={saving || !bulkText.trim() || (isCloudflareAi && !cloudflareData.accountId)}>
                 {saving ? "Adding..." : "Add All Keys"}
               </Button>
               <Button onClick={onClose} variant="ghost" fullWidth>Cancel</Button>

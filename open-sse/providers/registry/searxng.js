@@ -1,3 +1,5 @@
+import { SEARXNG_URL } from "../../config/runtimeConfig.js";
+
 export default {
   id: "searxng",
   alias: "searxng",
@@ -15,9 +17,7 @@ export default {
   ],
   noAuth: true,
   searchConfig: {
-    baseUrl: process.env.SEARXNG_URL
-      ? `${process.env.SEARXNG_URL.replace(/\/+$/, "")}/search`
-      : "http://localhost:8888/search",
+    baseUrl: SEARXNG_URL,
     method: "GET",
     authType: "none",
     authHeader: "none",
